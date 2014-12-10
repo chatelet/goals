@@ -83,4 +83,32 @@ RSpec.configure do |config|
     click_button("submit")
   end
 
+  def submit_comment(body)
+    fill_in("Body", with: body)
+    click_button("submit")
+  end
+
+  def create_goal_comment
+    make_user_with_goal("Tim","g1","Private")
+    make_another_goal("g2","Public")
+    logout_user
+
+    make_user_with_goal("Julian","g3","Public")
+    click_link("Tim") #user's show page
+    click_link("show_Tim_g2") #goal's show page
+    click_link("Create Comment")
+    submit_comment("c1")
+  end
+
+  def create_user_comment
+    make_user_with_goal("Tim","g1","Private")
+    make_another_goal("g2","Public")
+    logout_user
+
+    make_user_with_goal("Julian","g3","Public")
+    click_link("Tim")
+    click_link("Create Comment")
+    submit_comment("c1")
+  end
+
 end
