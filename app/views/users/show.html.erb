@@ -1,5 +1,47 @@
-<h1>Username</h1>
+<h1><%= @user.username %></h1>
+
+
+
+<% if @user.id == current_user.id %>
+<ul>
+<% @user.goals.each do |goal|%>
+<li> <%= goal.content %> <br>
+<a id="<%= current_user.username %>_<%= goal.content.html_safe %>" href="<%= edit_goal_url(goal.id) %>">Edit Goal</a>
+  <form action="<%= goal_url(goal.id) %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input id="destroy_<%= current_user.username %>_<%= goal.content.html_safe %>" type="button" name="submit" value="Delete Goal">
+  </form> </li>
+
+<% end %>
+</ul>
+
+<% else %>
 
 <ul>
-  <li><%= @user.username %></li>
+  <% @user.goals.select{|goal| goal.public || @user.id == current_user.id }.each do |goal|%>
+
+  <li>Goal: <%= goal.content %> <br>
+      <a id="show_<%= h(@user.username) %>_<%= h(goal.content) %>" href="<%= goal_url(goal.id) %>">Goal Page</a></li>
+  <% end %>
+
 </ul>
+
+<% end %>
+
+<h3>Comments for <%= @user.username %></h3>
+
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+      from: <%= comment.author.username %> at <%= comment.created_at %> <br>
+      <%= comment.body %>
+
+    </li>
+  <% end %>
+</ul>
+
+
+<a href="<%= new_user_comment_url(@user.id) %>">Create Comment</a>
+
+<a href="<%= goals_url %>">back</a>

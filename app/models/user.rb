@@ -9,6 +9,22 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many :comments
+
+  has_many(
+    :posted_user_comments,
+    class_name: 'UserComment',
+    foreign_key: :author_id,
+    primary_key: :id
+  )
+
+  has_many(
+    :posted_goal_comments,
+    class_name: 'GoalComment',
+    foreign_key: :author_id,
+    primary_key: :id
+  )
+
   def self.generate_session_token
     SecureRandom.urlsafe_base64(16)
   end

@@ -1,5 +1,10 @@
 <h1>All Goals</h1>
 
+
+
+
+<a id="<%= current_user.username  %>"href="<%= user_url(current_user.id) %>">Your goal page</a>
+
 <h3>Your goals</h3>
 <ul>
   <% @all_goals.select{|goal| goal.author_id == current_user.id}.each do |goal|%>
@@ -13,6 +18,16 @@
   <% end %>
 
 </ul>
+
+<h3> Other Users</h3>
+<ul>
+  <% User.all.each do |user| %>
+    <% if user.id != current_user.id %>
+      <li>User: <a id="<%= user.username %>"  href="<%= user_url(user.id) %>"><%= user.username %></a></li>
+      <% end %>
+  <% end %>
+</ul>
+
 
 
 

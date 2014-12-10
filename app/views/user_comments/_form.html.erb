@@ -1,0 +1,13 @@
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+
+<label for="user_id">User?</label> <br>
+  <select name="user_comment[user_id]">
+    <% User.all.each do |user| %>
+    <option <%= 'selected="selected"' if user_id == user.id %>value="user_comment[user_id]"><%= user.username %></option>
+    <% end %>
+  </select>
+
+<label for="Body"></label>
+<input id="Body" type="text" name="user_comment[body]" value="<%= @user_comment.body %>">
+<input type="submit" name="submit" value="submit">

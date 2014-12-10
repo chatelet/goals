@@ -56,6 +56,7 @@ feature "read comments" do
 
   scenario "user comments appear in user show page" do
     create_user_comment
+    save_and_open_page
     expect(page).to have_content("c1")
     expect(page).to have_content("Julian")
   end

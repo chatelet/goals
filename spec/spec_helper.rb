@@ -108,6 +108,7 @@ RSpec.configure do |config|
     make_user_with_goal("Julian","g3","Public")
     click_link("Tim")
     click_link("Create Comment")
+    save_and_open_page
     submit_comment("c1")
   end
 
